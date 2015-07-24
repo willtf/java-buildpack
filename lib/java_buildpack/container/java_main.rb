@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ require 'java_buildpack/component/base_component'
 require 'java_buildpack/container'
 require 'java_buildpack/util/dash_case'
 require 'java_buildpack/util/java_main_utils'
+require 'java_buildpack/util/qualify_path'
 
 module JavaBuildpack
   module Container
@@ -26,6 +27,7 @@ module JavaBuildpack
     # method. This isn't a _container_ in the traditional sense, but contains the functionality to manage the lifecycle
     # of Java +main()+ applications.
     class JavaMain < JavaBuildpack::Component::BaseComponent
+      include JavaBuildpack::Util
 
       # (see JavaBuildpack::Component::BaseComponent#detect)
       def detect
@@ -55,7 +57,7 @@ module JavaBuildpack
       def release_text
         [
           port,
-          "#{@droplet.java_home.root}/bin/java",
+          "#{qualify_path @droplet.java_home.root, @droplet.root}/bin/java",
           @droplet.additional_libraries.as_classpath,
           @droplet.java_opts.join(' '),
           main_class,
