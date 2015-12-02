@@ -520,7 +520,7 @@ brainpoolP192r1
 #
 # Example:
 #   jdk.tls.disabledAlgorithms=MD5, SSLv3, DSA, RSA keySize < 2048
-jdk.tls.disabledAlgorithms=TLSv1,SSLv1,SSLv2,SSLv3, RC4, DH keySize < 768,\
+jdk.tls.disabledAlgorithms=TLSv1, SSLv1, SSLv2, SSLv2Hello, SSLv3, RC4, DH keySize < 768,\
 TLS_DHE_DSS_WITH_AES_256_CBC_SHA,\
 SSL_RSA_WITH_3DES_EDE_CBC_SHA,\
 SSL_RSA_WITH_RC4_128_SHA,\
