@@ -18,7 +18,14 @@
 
 <Server port='-1'>
     <Service name='Catalina'>
-        <Connector server="Redacted"
+	<Executor name="nioconnector"
+	    namePrefix="nioconnector"
+	    maxIdleTime="10000"
+	    prestartminSpareThreads="true"
+	    maxThreads='${tomcat.maxThreads}'
+	    minSpareThreads='${tomcat.minSpareThreads}'/>
+	<Connector executor="nioconnector"
+	    server="Redacted"
             xpoweredBy="false"
             port='${http.port}'
             bindOnInit="false"
