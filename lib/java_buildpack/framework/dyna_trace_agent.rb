@@ -35,7 +35,6 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
         @droplet.java_opts.add_agentpath_with_props(agent_path, name: agent_name, server: server)
-        # -agentpath:<path to libdtagent.so>=name=Tomcat_Monitoring,server=ubuntu:9998
       end
 
       protected
@@ -60,7 +59,7 @@ module JavaBuildpack
       end
 
       def agent_name
-        "#{@application.details['application_name']}_#{profile_name}"
+        @configuration['default_agent_name'] || "#{@application.details['application_name']}_#{profile_name}"
       end
 
       def architecture
